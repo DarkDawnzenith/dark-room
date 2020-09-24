@@ -1,7 +1,7 @@
 # Register the submod
 init -990 python:
     store.mas_submod_utils.Submod(
-        author="Commander789 (in Reddit) Darkskull Dawn Zenith and Booplicate",
+        author="Commander789 Darkskull Dawn Zenith and Booplicate",
         name="Dark Room Topic",
         description="What if the classroom got a sudden blackout somehow? With this submod, you'll know for sure!",
         version="1.0.0"
@@ -12,7 +12,7 @@ init -989 python:
     if store.mas_submod_utils.isSubmodInstalled("Submod Updater Plugin"):
         store.sup_utils.SubmodUpdater(
             submod="Dark Room Topic",
-            user_name="Darkskull Dawn Zenith",
+            user_name="DarkDawnZenith",
             repository_name="dark-room",
             update_dir=""
         )
