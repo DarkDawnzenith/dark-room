@@ -17,6 +17,8 @@ init -989 python:
             update_dir=""
         )
 
+image monika_dark_room = "mod_assets/location/spaceroom/spaceroom-d.png"
+
 init 5 python:
     if persistent.playername == "Ronald":
         addEvent(
