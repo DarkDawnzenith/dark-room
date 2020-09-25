@@ -4,7 +4,7 @@ init -990 python:
         author="Commander789 Darkskull Dawn Zenith and Booplicate",
         name="Dark Room Topic",
         description="What if the classroom got a sudden blackout somehow? With this submod, you'll know for sure!",
-        version="1.0.0"
+        version="1.0.1"
     )
 
 # Register the updater
@@ -17,35 +17,94 @@ init -989 python:
             update_dir=""
         )
 
-image monika_dark_room = "mod_assets/location/spaceroom/spaceroom-d.png"
+init -1 python: 
+    mas_background_def = MASFilterableBackground(
+        "submod_dark_room",
+        "Dark Room",
+        
+        # mapping of filters to MASWeatherMaps
+        MASFilterWeatherMap(
+            day=MASWeatherMap({
+                store.mas_weather.PRECIP_TYPE_DEF: "submod_dark_room_day",
+                store.mas_weather.PRECIP_TYPE_RAIN: "submod_dark_room_rain",
+                store.mas_weather.PRECIP_TYPE_OVERCAST: "submod_dark_room_overcast",
+                store.mas_weather.PRECIP_TYPE_SNOW: "submod_dark_room_snow",
+            }),
+            night=MASWeatherMap({
+                store.mas_weather.PRECIP_TYPE_DEF: "submod_dark_room_night",
+                store.mas_weather.PRECIP_TYPE_SNOW: "submod_dark_room_night_snow",
+            }),
+            sunset=MASWeatherMap({
+                store.mas_weather.PRECIP_TYPE_DEF: "submod_dark_room_ss",
+                store.mas_weather.PRECIP_TYPE_RAIN: "submod_dark_room_rain_ss",
+                store.mas_weather.PRECIP_TYPE_OVERCAST: "submod_dark_room_overcast_ss",
+                store.mas_weather.PRECIP_TYPE_SNOW: "submod_dark_room_snow_ss",
+            }),
+        ),
 
-init 5 python:
-    if persistent.playername == "Ronald":
+        # filter manager
+        MASBackgroundFilterManager(
+            MASBackgroundFilterChunk(
+                False,
+                None,
+                MASBackgroundFilterSlice.cachecreate(
+                    store.mas_sprites.FLT_NIGHT,
+                    60
+                )
+            ),
+            MASBackgroundFilterChunk(
+                True,
+                None,
+                MASBackgroundFilterSlice.cachecreate(
+                    store.mas_sprites.FLT_SUNSET,
+                    60,
+                    30*60,
+                    10,
+                ),
+                MASBackgroundFilterSlice.cachecreate(
+                    store.mas_sprites.FLT_DAY,
+                    60
+                ),
+                MASBackgroundFilterSlice.cachecreate(
+                    store.mas_sprites.FLT_SUNSET,
+                    60,
+                    30*60,
+                    10,
+                ),
+            ),
+            MASBackgroundFilterChunk(
+                False,
+                None,
+                MASBackgroundFilterSlice.cachecreate(
+                    store.mas_sprites.FLT_NIGHT,
+                    60
+                )
+            )
+        ),
+
+        unlocked=False,
+        entry_pp=store.mas_background._def_background_entry,
+        exit_pp=store.mas_background._def_background_exit,
+    )
+
+init 6 python:
+    if persistent._mas_current_background == "spaceroom":
         addEvent(
             Event(
                 persistent.event_database,
                 eventlabel='blackout',
                 category=['mod'],
-                prompt="Can you test this new feature?",
-                pool=True,
-                unlocked=False,
-                rules={"no_unlock": None}
+                prompt="Turn off the lights.",
+                pool=True
             )
         )
-    else:
-        addEvent(Event(persistent.event_database,eventlabel="blackout",category=['mod'],prompt="Easter Egg",random=True))
-
-    if persistent._mas_current_background == "spaceroom":
-        addEvent(Event(persistent.event_database,eventlabel="blackout",category=['mod'],prompt="Easter Egg",random=True))
     else:
         print("ch30_loop")
 
 label blackout:
     if mas_isMorning():
-        m 1eub "Okay!"
         $mas_HKBRaiseShield()
         $HKBHideButtons()
-        pause 7.0
         stop music
         $ morning_flag = False
         $ prev_flt = store.mas_sprites.get_filter()
@@ -86,10 +145,8 @@ label blackout:
         pause 0.15
         $ play_song(persistent.current_track, fadein=5.0)
     else:
-        m 1eub "Okay!"
         $mas_HKBRaiseShield()
         $HKBHideButtons()
-        pause 7.0
         stop music
         play sound "mod_assets/sounds/effects/powerout.ogg"
         show black zorder 10
@@ -123,3 +180,4 @@ label blackout:
         pause 0.15
         $ play_song(persistent.current_track, fadein=5.0)
     return
+image monika_dark_room = "mod_assets/location/spaceroom/spaceroom-d.png"
