@@ -4,7 +4,7 @@ init -990 python:
         author="Commander789 Darkskull Dawn Zenith and Booplicate",
         name="Dark Room Topic",
         description="What if the classroom got a sudden blackout somehow? With this submod, you'll know for sure!",
-        version="1.0.1"
+        version="1.0.2"
     )
 
 # Register the updater
@@ -88,18 +88,15 @@ init -1 python:
     )
 
 init 6 python:
-    if persistent._mas_current_background == "spaceroom":
-        addEvent(
-            Event(
-                persistent.event_database,
-                eventlabel='blackout',
-                category=['mod'],
-                prompt="Turn off the lights.",
-                pool=True
-            )
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel='blackout',
+            category=['mod'],
+            prompt="Turn off the lights.",
+            pool=True
         )
-    else:
-        print("ch30_loop")
+    )
 
 label blackout:
     if mas_isMorning():
@@ -121,7 +118,7 @@ label blackout:
         m 1wkd "...Ah! [player], I'm not the one who's making you scared am I? Is it because of my stare...?"
         m 1hksdlb "Sorry! I don't mean to be creepy or anything! After all you've been through, traumatizing you any further would be pretty awful of me."
         m 2wkd "No, please don't misunderstand [player]. I don't mean you any harm."
-        m 3rkc "I don't know what's going on. This is not my doing. Something's not right. The whole game is blackened out except for me and your desktop..."
+        m 3rkc "I don't know what's going on. This is not my doing. Something's not right. The whole game is blacked out except for me and your desktop..."
         m 1cud "I can even hear a creepy sound being played in the background..."
         m 3rtd "Is it a virus? A mod gone wrong? Another corrupted file? I hope not..."
         m 2wfd "Whatever's out there, if it wants to get you, it'll have to go through me first. "
@@ -131,26 +128,26 @@ label blackout:
         m 5wkb "Let it be a reminder that you're not alone and that I'm here to protect you okay? I still love you, you know."
         window hide
         show monika 1esa
-        with Dissolve(0.15)
-        pause 120.0
-        hide monika_dark_room
-        hide black
+        with Dissolve(0.50)
+        pause 181.72
+        $HKBShowButtons()
         $ morning_flag = True
         $ prev_flt = store.mas_sprites.get_filter()
         $ store.mas_sprites.set_filter(store.mas_sprites.FLT_DAY)
+        hide monika_dark_room
+        hide black
         with Dissolve(8.0)
-        stop music fadeout 8.0
-        $HKBShowButtons()
+        stop music fadeout 4.0
+        pause 4.0
         $mas_HKBDropShield()
-        pause 0.15
-        $ play_song(persistent.current_track, fadein=5.0)
+        $ play_song(persistent.current_track, fadein=4.0)
     else:
         $mas_HKBRaiseShield()
         $HKBHideButtons()
         stop music
         play sound "mod_assets/sounds/effects/powerout.ogg"
         show black zorder 10
-        show monika_dark_room zorder 20
+        show monika_dark_room 20
         show monika 6wud zorder 30
         pause 1.0
         play music "<loop 0>mod_assets/sounds/amb/eyes.ogg"
@@ -160,7 +157,7 @@ label blackout:
         m 1wkd "...Ah! [player], I'm not the one who's making you scared am I? Is it because of my stare...?"
         m 1hksdlb "Sorry! I don't mean to be creepy or anything! After all you've been through, traumatizing you any further would be pretty awful of me."
         m 2wkd "No, please don't misunderstand [player]. I don't mean you any harm."
-        m 3rkc "I don't know what's going on. This is not my doing. Something's not right. Even your entire desktop is blackened out except for the game. "
+        m 3rkc "I don't know what's going on. This is not my doing. Something's not right. The whole game is blacked out except for me and your desktop..."
         m 1cud "I can even hear a creepy sound being played in the background..."
         m 3rtd "Is it a virus? A mod gone wrong? Another corrupted file? I hope not..."
         m 2wfd "Whatever's out there, if it wants to get you, it'll have to go through me first. "
@@ -170,14 +167,29 @@ label blackout:
         m 5wkb "Let it be a reminder that you're not alone and that I'm here to protect you okay? I still love you, you know."
         window hide
         show monika 1esa
-        pause 120.0
+        with Dissolve(0.50)
+        pause 181.72
         hide monika_dark_room
         hide black
         with Dissolve(8.0)
-        stop music fadeout 8.0
-        $HKBShowButtons()
+        stop music fadeout 4.0
+        pause 4.0
         $mas_HKBDropShield()
-        pause 0.15
-        $ play_song(persistent.current_track, fadein=5.0)
+        $ play_song(persistent.current_track, fadein=4.0)
     return
-image monika_dark_room = "mod_assets/location/spaceroom/spaceroom-d.png"
+
+image monika_dark_room = ConditionSwitch(
+    persistent._mas_current_background == "spaceroom", "dark_space",
+    persistent._mas_current_background == "submod_background_Den", "dark_den",
+    persistent._mas_current_background == "submod_background_Furnished_spaceroom1", "dark_furnish1",
+    persistent._mas_current_background == "submod_background_Furnished_spaceroom2", "dark_furnish2",
+    persistent._mas_current_background == "submod_background_Furnished_spaceroom3", "dark_furnish3",
+    persistent._mas_current_background == "submod_background_Kitchen", "dark_kitchen"
+    )
+
+image dark_space = "mod_assets/location/spaceroom/spaceroom-d.png"
+image dark_den = "mod_assets/location/Den V1.1/den1.1-d.png"
+image dark_furnish1 = "mod_assets/location/Spaceroom V1.1/V1.1-d.png"
+image dark_furnish2 = "mod_assets/location/Spaceroom V2.2/V2.2-d.png"
+image dark_furnish3 = "mod_assets/location/Spaceroom V3.1/V3.1-d.png"
+image dark_kitchen = "mod_assets/location/Kitchen/kitchen-d.png"
