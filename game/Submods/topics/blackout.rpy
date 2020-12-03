@@ -4,7 +4,7 @@ init -990 python:
         author="Commander789 Darkskull Dawn Zenith and Booplicate",
         name="Dark Room Topic",
         description="What if the classroom got a sudden blackout somehow? With this submod, you'll know for sure!",
-        version="1.0.2"
+        version="1.0.3"
     )
 
 # Register the updater
@@ -87,15 +87,20 @@ init -1 python:
         exit_pp=store.mas_background._def_background_exit,
     )
 
-init 6 python:
+init 5 python:
     addEvent(
         Event(
             persistent.event_database,
-            eventlabel='blackout',
-            category=['mod'],
-            prompt="Turn off the lights.",
-            pool=True
-        )
+            eventlabel="blackout",
+            category=['misc'],
+            prompt="{i}Turn off the lights.{/i/}",
+            random=True,
+            pool=True,
+            unlocked=False,
+            rules={"no_unlock": None},
+            aff_range=(mas_aff.ENAMORED, None)
+        ),
+        restartBlacklist=True
     )
 
 label blackout:
@@ -184,7 +189,8 @@ image monika_dark_room = ConditionSwitch(
     persistent._mas_current_background == "submod_background_Furnished_spaceroom1", "dark_furnish1",
     persistent._mas_current_background == "submod_background_Furnished_spaceroom2", "dark_furnish2",
     persistent._mas_current_background == "submod_background_Furnished_spaceroom3", "dark_furnish3",
-    persistent._mas_current_background == "submod_background_Kitchen", "dark_kitchen"
+    persistent._mas_current_background == "submod_background_Kitchen", "dark_kitchen",
+    persistent._mas_current_background == "submod_background_jy", "dark_jy"
     )
 
 image dark_space = "mod_assets/location/spaceroom/spaceroom-d.png"
@@ -193,3 +199,4 @@ image dark_furnish1 = "mod_assets/location/Spaceroom V1.1/V1.1-d.png"
 image dark_furnish2 = "mod_assets/location/Spaceroom V2.2/V2.2-d.png"
 image dark_furnish3 = "mod_assets/location/Spaceroom V3.1/V3.1-d.png"
 image dark_kitchen = "mod_assets/location/Kitchen/kitchen-d.png"
+image dark_jy = "mod_assets/location/Just Yuri/dark.png"
