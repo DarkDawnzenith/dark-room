@@ -188,8 +188,7 @@ image monika_dark_room = ConditionSwitch(
     persistent._mas_current_background == "submod_background_Furnished_spaceroom1", "dark_furnish1",
     persistent._mas_current_background == "submod_background_Furnished_spaceroom2", "dark_furnish2",
     persistent._mas_current_background == "submod_background_Furnished_spaceroom3", "dark_furnish3",
-    persistent._mas_current_background == "submod_background_Kitchen", "dark_kitchen",
-    persistent._mas_current_background == "submod_background_JY", "dark_jy"
+    persistent._mas_current_background == "submod_background_Kitchen", "dark_kitchen"
     )
 
 image dark_space = "mod_assets/location/spaceroom/spaceroom-d.png"
@@ -198,4 +197,3 @@ image dark_furnish1 = "mod_assets/location/Spaceroom V1.1/V1.1-d.png"
 image dark_furnish2 = "mod_assets/location/Spaceroom V2.2/V2.2-d.png"
 image dark_furnish3 = "mod_assets/location/Spaceroom V3.1/V3.1-d.png"
 image dark_kitchen = "mod_assets/location/Kitchen/kitchen-d.png"
-image dark_jy = "mod_assets/location/Just Yuri/dark.png"
