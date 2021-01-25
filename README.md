@@ -5,3 +5,5 @@ What if the classroom got a sudden blackout somehow? With this submod, you'll kn
 Here's a preview of the Original Concept, before it got implemented to the submods.
 
 ![Preview](https://cdn.discordapp.com/attachments/389553849482084363/389662232927272960/Just_Monika.png)
+
+# NOTE: This topic will be either unlocked or brought randomly by Monika after reaching 400 points of affection!
