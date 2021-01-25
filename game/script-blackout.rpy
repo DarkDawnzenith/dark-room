@@ -4,7 +4,7 @@ init -990 python:
         author="Commander789 Darkskull Dawn Zenith and Booplicate",
         name="Dark Room Topic",
         description="What if the classroom got a sudden blackout somehow? With this submod, you'll know for sure!",
-        version="1.0.3"
+        version="1.0.4"
     )
 
 # Register the updater
@@ -92,13 +92,11 @@ init 5 python:
         Event(
             persistent.event_database,
             eventlabel="blackout",
-            category=['misc'],
-            prompt="{i}Turn off the lights.{/i/}",
-            random=True,
+            category=['mod'],
+            prompt="{i}Turn off the lights.{/i}",
             pool=True,
             unlocked=True,
-            rules={"no_unlock": None},
-            aff_range=(mas_aff.ENAMORED, None)
+            aff_range=(mas_aff.ENAMORED or mas_aff.LOVE, None)
         )
     )
 
@@ -114,6 +112,7 @@ label blackout:
         show black zorder 10
         show monika_dark_room zorder 20
         show monika 6wud zorder 30
+        show vignette
         pause 1.0
         play music "<loop 0>mod_assets/sounds/amb/eyes.ogg"
         m 3rksdlb "Ahaha~! Who turned off the lights? I don't remember seeing this before..."
@@ -140,6 +139,7 @@ label blackout:
         $ store.mas_sprites.set_filter(store.mas_sprites.FLT_DAY)
         hide monika_dark_room
         hide black
+        hide vignette
         with Dissolve(8.0)
         stop music fadeout 4.0
         pause 4.0
@@ -151,8 +151,9 @@ label blackout:
         stop music
         play sound "mod_assets/sounds/effects/powerout.ogg"
         show black zorder 10
-        show monika_dark_room 20
+        show monika_dark_room zorder 20
         show monika 6wud zorder 30
+        show vignette
         pause 1.0
         play music "<loop 0>mod_assets/sounds/amb/eyes.ogg"
         m 3rksdlb "Ahaha~! Who turned off the lights? I don't remember seeing this before..."
@@ -173,8 +174,10 @@ label blackout:
         show monika 1esa
         with Dissolve(0.50)
         pause 181.72
+        $HKBShowButtons()
         hide monika_dark_room
         hide black
+        hide vignette
         with Dissolve(8.0)
         stop music fadeout 4.0
         pause 4.0
