@@ -4,7 +4,7 @@ init -990 python:
         author="Commander789 Darkskull Dawn Zenith and Booplicate",
         name="Dark Room Topic",
         description="What if the classroom got a sudden blackout somehow? With this submod, you'll know for sure!",
-        version="1.0.4"
+        version="1.0.5"
     )
 
 # Register the updater
@@ -95,8 +95,10 @@ init 5 python:
             category=['mod'],
             prompt="{i}Turn off the lights.{/i}",
             pool=True,
-            unlocked=True,
-            aff_range=(mas_aff.ENAMORED or mas_aff.LOVE, None)
+            unlocked=False,
+            random=True,
+            rules={"no_unlock":None},
+            aff_range=(mas_aff.ENAMORED, None)
         )
     )
 
@@ -112,7 +114,6 @@ label blackout:
         show black zorder 10
         show monika_dark_room zorder 20
         show monika 6wud zorder 30
-        show vignette
         pause 1.0
         play music "<loop 0>mod_assets/sounds/amb/eyes.ogg"
         m 3rksdlb "Ahaha~! Who turned off the lights? I don't remember seeing this before..."
@@ -139,7 +140,6 @@ label blackout:
         $ store.mas_sprites.set_filter(store.mas_sprites.FLT_DAY)
         hide monika_dark_room
         hide black
-        hide vignette
         with Dissolve(8.0)
         stop music fadeout 4.0
         pause 4.0
@@ -153,7 +153,6 @@ label blackout:
         show black zorder 10
         show monika_dark_room zorder 20
         show monika 6wud zorder 30
-        show vignette
         pause 1.0
         play music "<loop 0>mod_assets/sounds/amb/eyes.ogg"
         m 3rksdlb "Ahaha~! Who turned off the lights? I don't remember seeing this before..."
@@ -177,7 +176,6 @@ label blackout:
         $HKBShowButtons()
         hide monika_dark_room
         hide black
-        hide vignette
         with Dissolve(8.0)
         stop music fadeout 4.0
         pause 4.0
@@ -191,7 +189,8 @@ image monika_dark_room = ConditionSwitch(
     persistent._mas_current_background == "submod_background_Furnished_spaceroom1", "dark_furnish1",
     persistent._mas_current_background == "submod_background_Furnished_spaceroom2", "dark_furnish2",
     persistent._mas_current_background == "submod_background_Furnished_spaceroom3", "dark_furnish3",
-    persistent._mas_current_background == "submod_background_Kitchen", "dark_kitchen"
+    persistent._mas_current_background == "submod_background_Kitchen", "dark_kitchen",
+    persistent._mas_current_background == "submod_background_ccabin", "dark_ccabin"
     )
 
 image dark_space = "mod_assets/location/spaceroom/spaceroom-d.png"
@@ -200,3 +199,4 @@ image dark_furnish1 = "mod_assets/location/Spaceroom V1.1/V1.1-d.png"
 image dark_furnish2 = "mod_assets/location/Spaceroom V2.2/V2.2-d.png"
 image dark_furnish3 = "mod_assets/location/Spaceroom V3.1/V3.1-d.png"
 image dark_kitchen = "mod_assets/location/Kitchen/kitchen-d.png"
+image dark_ccabin = "mod_assets/location/CozyCabin/ccabin-d.png"
